@@ -41,17 +41,17 @@ for posebone in pose_bones:
     if posebone.name.upper() == "SPINE_03":
         posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.02, 0.0, 0.0))
     if posebone.name.upper() == "CLAVICLE_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.12, 0.02, -0.02))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0, -0.13, -0.02))
     if posebone.name.upper() == "CLAVICLE_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.12, -0.05, 0.02))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0, 0.13, 0.02))
     if posebone.name.upper() == "UPPERARM_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.05, -0.025, -0.018))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.12, 0.07, 0.052))
     if posebone.name.upper() == "UPPERARM_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.05, 0.025, 0.018))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.12, -0.07, -.052))
     if posebone.name.upper() == "LOWERARM_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.136, -0.1, -0.005))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.036, -0.07, -0.005))
     if posebone.name.upper() == "LOWERARM_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.136, 0.1, .005))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.036, 0.07, .005))
     if posebone.name.upper() == "HAND_L":
         posebone.rotation_quaternion += mathutils.Quaternion((0.0, -.025, 0.23, -0.14))
     if posebone.name.upper() == "HAND_R":
