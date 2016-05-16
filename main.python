@@ -1,0 +1,207 @@
+# Usage:
+# Select all the objects from a makehuman model in object mode, and run the script
+
+# Copyright 2016 William Forster
+
+import bpy
+import mathutils
+
+print("\nStart script")
+
+# We have to go through the selected objects and deduce which is which
+# start by creating some empty veriables
+armature = None
+all_meshes = []
+charactermesh = None
+max_vertex_groups = -1          # the character mesh is probably the one with the most vertex groups / joints
+
+# go through the selected objects
+for object in bpy.context.selected_objects: 
+    if object.type == 'MESH':
+        all_meshes.append(object)
+        # check to see if this one might be the character mesh
+        if len(object.vertex_groups) > max_vertex_groups:
+            charactermesh = object
+            max_vertex_groups = len(object.vertex_groups)
+    if object.type == 'ARMATURE':
+        armature = object
+
+pose_bones = armature.pose.bones        # the pose bones (pose type bone data) of the selected object
+
+for posebone in pose_bones:
+    print("Rotating bone " + posebone.name)
+    
+    # Rotate the bone if it is the spine_01 bone
+    if posebone.name.upper() == "SPINE_01":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, 0.0))
+        
+    # Rotate the rest of the bones
+    if posebone.name.upper() == "SPINE_02":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.05, 0.0, 0.0))
+    if posebone.name.upper() == "SPINE_03":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.02, 0.0, 0.0))
+    if posebone.name.upper() == "CLAVICLE_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.12, 0.02, -0.02))
+    if posebone.name.upper() == "CLAVICLE_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.12, -0.05, 0.02))
+    if posebone.name.upper() == "UPPERARM_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.05, -0.025, -0.018))
+    if posebone.name.upper() == "UPPERARM_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.05, 0.025, 0.018))
+    if posebone.name.upper() == "LOWERARM_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.136, -0.1, -0.005))
+    if posebone.name.upper() == "LOWERARM_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.136, 0.1, .005))
+    if posebone.name.upper() == "HAND_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -.025, 0.23, -0.14))
+    if posebone.name.upper() == "HAND_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -.025, -0.23, .14))
+    if posebone.name.upper() == "MIDDLE_01_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.0, 0.0, 0.038))
+    if posebone.name.upper() == "MIDDLE_01_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.0, 0.0, -0.038))
+    if posebone.name.upper() == "MIDDLE_02_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.035, 0.0, -0.013))
+    if posebone.name.upper() == "MIDDLE_02_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.035, 0.0, 0.013))
+    if posebone.name.upper() == "MIDDLE_03_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.04, 0.0, 0.0))
+    if posebone.name.upper() == "MIDDLE_03_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.04, 0.0, 0.0))
+    if posebone.name.upper() == "INDEX_01_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.025, 0.0, -0.01))
+    if posebone.name.upper() == "INDEX_01_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.025, 0.0, 0.01))
+    if posebone.name.upper() == "INDEX_02_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, -0.005))
+    if posebone.name.upper() == "INDEX_02_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, 0.005))
+    if posebone.name.upper() == "RING_01_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.0075, 0.0, 0.065))
+    if posebone.name.upper() == "RING_01_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.075, 0.0, -0.065))
+    if posebone.name.upper() == "RING_02_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.025, 0.0, -0.015))
+    if posebone.name.upper() == "RING_02_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.025, 0.0, 0.015))
+    if posebone.name.upper() == "PINKY_01_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.023, 0.0, 0.07))
+    if posebone.name.upper() == "PINKY_01_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.023, 0.0, -0.07))
+    if posebone.name.upper() == "PINKY_02_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, -0.016))
+    if posebone.name.upper() == "PINKY_02_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, 0.016))
+    if posebone.name.upper() == "THUMB_01_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.021, 0.0, -0.102))
+    if posebone.name.upper() == "THUMB_01_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.021, 0.0, 0.102))
+    if posebone.name.upper() == "THUMB_02_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.043, 0.0, 0.103))
+    if posebone.name.upper() == "THUMB_02_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.043, 0.0, -0.103))
+    if posebone.name.upper() == "THUMB_03_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.125, 0.0, 0.0))
+    if posebone.name.upper() == "THUMB_03_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.125, 0.0, 0.0))
+
+    if posebone.name.upper() == "THIGH_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.06, 0.0, -0.015))
+    if posebone.name.upper() == "THIGH_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.06, 0.0, 0.015))
+    if posebone.name.upper() == "CALF_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.0125, 0.0, 0.0))
+    if posebone.name.upper() == "CALF_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.0125, 0.0, 0.0))
+    if posebone.name.upper() == "FOOT_L":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.04, 0.0, 0.0))
+    if posebone.name.upper() == "FOOT_R":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.04, 0.0, 0.0))
+        
+    if posebone.name.upper() == "NECK_01":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.06, 0.0, 0.0))
+    if posebone.name.upper() == "HEAD":
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.104, 0.0, 0.0))
+        
+        
+# For each mesh, copy the armature modifier, then apply one of them to 
+# bake the pose into the mesh
+for mesh in all_meshes:
+    print("Copying armature modifier of " + mesh.name)
+    bpy.context.scene.objects.active = mesh
+    bpy.ops.object.modifier_copy(modifier = mesh.modifiers[0].name)
+    print("Baking pose to mesh " + mesh.name)
+    bpy.ops.object.modifier_apply(modifier = mesh.modifiers[0].name)
+
+# Apply the pose so it is the new rest position
+print("Setting pose as rest pose")
+bpy.context.scene.objects.active = armature
+bpy.ops.object.mode_set(mode='POSE')
+bpy.ops.pose.armature_apply()
+bpy.ops.object.mode_set(mode='OBJECT')
+
+
+# create all the twist bones ready for weight painting 
+bpy.ops.object.mode_set(mode='EDIT')
+def getbone(bone_name):
+    for bone in armature.data.edit_bones:
+        if bone.name.upper() == bone_name.upper():
+            return bone
+        
+def create_bone(parentname, newname, headoffset, tailoffset):
+    oldbone = getbone(parentname)
+    bpy.ops.armature.select_all(action = 'DESELECT')
+    oldbone.select = True
+    bpy.ops.armature.extrude()
+    bpy.ops.armature.select_all(action = 'DESELECT')
+    newbone = getbone(parentname + ".001")
+    newbone.name = newname
+    newbone.use_connect = False         # don't join the head of this bone to the tail of its parent - free floating
+    newbone.head = oldbone.head + mathutils.Vector(headoffset)
+    newbone.tail = newbone.head + mathutils.Vector(tailoffset)
+    print("Created bone " + newname)
+   
+create_bone("upperarm_l", "upperarm_twist_01_l", (0.3, 0.4, 0), (-1, -0.6, -15.4))
+create_bone("upperarm_r", "upperarm_twist_01_r", (-0.3, 0.4, 0), (-5, -2.9, 14.3))
+create_bone("lowerarm_l", "lowerarm_twist_01_l", (10.1, -7.7, 6), (4.6, 8.2, -18.2))
+create_bone("lowerarm_r", "lowerarm_twist_01_r", (-10.1, -7.7, 6), (1.4, -11.5, 16.9))
+create_bone("thigh_l", "thigh_twist_01_l", (2.7, -21.9, -0.7), (-1.8, -0.8, -32.3))
+create_bone("thigh_r", "thigh_twist_01_r", (-2.7, -21.9, -0.7), (-1.8, 0.8, 32.3))
+create_bone("calf_l", "calf_twist_01_l", (1.5, -20.2, -3.2), (-2.1, -5, -29.8))
+create_bone("calf_r", "calf_twist_01_r", (-1.5, -20.2, -3.2), (-2.1, 5, 29.8))
+bpy.ops.object.mode_set(mode='OBJECT')
+
+
+# create all the vertex groups for the twist bones
+bpy.context.tool_settings.vertex_group_weight = 0.0
+bpy.context.scene.objects.active = charactermesh
+bpy.ops.object.mode_set(mode='EDIT')    # we need to go into edit mode to do this
+
+def add_group(parentname, newname):
+    bpy.ops.object.vertex_group_add()
+    charactermesh.vertex_groups[-1].name = newname
+    bpy.ops.object.vertex_group_set_active(group = parentname)
+    bpy.ops.mesh.select_all(action = 'DESELECT')
+    bpy.ops.object.vertex_group_select()
+    bpy.ops.object.vertex_group_set_active(group = newname)
+    bpy.ops.object.vertex_group_assign()
+    print("Added vertex group " + newname)
+
+add_group("upperarm_l", "upperarm_twist_01_l")
+add_group("lowerarm_l", "lowerarm_twist_01_l")
+add_group("thigh_l", "thigh_twist_01_l")
+add_group("calf_l", "calf_twist_01_l")
+
+## only create the left vertex groups - if the makehuman model is symmetrical
+## you can copy the left vertex weights to create the 
+## right side using Mirror Vertex Group (Topology).
+## otherwise uncomment the following.
+#add_group("upperarm_r", "upperarm_twist_01_r")
+#add_group("lowerarm_r", "lowerarm_twist_01_r")
+#add_group("thigh_r", "thigh_twist_01_r")
+#add_group("calf_r", "calf_twist_01_r")
+
+bpy.ops.object.mode_set(mode='OBJECT')    # put us back in object mode where we started
+
+print("Finished script")
+        
