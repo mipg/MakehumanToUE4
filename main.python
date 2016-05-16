@@ -28,70 +28,57 @@ for object in bpy.context.selected_objects:
 
 pose_bones = armature.pose.bones        # the pose bones (pose type bone data) of the selected object
 
+# Go through the pose bones in the rig
 for posebone in pose_bones:
     print("Rotating bone " + posebone.name)
     
-    # Rotate the bone if it is the spine_01 bone
-    if posebone.name.upper() == "SPINE_01":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, 0.0))
-        
-    # Rotate the rest of the bones
-    if posebone.name.upper() == "SPINE_02":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.05, 0.0, 0.0))
-    if posebone.name.upper() == "SPINE_03":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.02, 0.0, 0.0))
-    if posebone.name.upper() == "CLAVICLE_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0, -0.13, -0.02))
-    if posebone.name.upper() == "CLAVICLE_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0, 0.13, 0.02))
-    if posebone.name.upper() == "UPPERARM_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.12, 0.07, 0.052))
-    if posebone.name.upper() == "UPPERARM_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.12, -0.07, -.052))
+    # Rotate the bone if it is the lowerarm_l bone
     if posebone.name.upper() == "LOWERARM_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.036, -0.07, -0.005))
+       posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.08, 0, 0))
+       
+    # Rotate the rest of the bones
     if posebone.name.upper() == "LOWERARM_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.036, 0.07, .005))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.08, 0, 0))
     if posebone.name.upper() == "HAND_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -.025, 0.23, -0.14))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -.1, .16, 0.1))
     if posebone.name.upper() == "HAND_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -.025, -0.23, .14))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -.1, -.16, -0.1))
     if posebone.name.upper() == "MIDDLE_01_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.0, 0.0, 0.038))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.0, 0.0, -.1))
     if posebone.name.upper() == "MIDDLE_01_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.0, 0.0, -0.038))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.0, 0.0, 0.1))
     if posebone.name.upper() == "MIDDLE_02_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.035, 0.0, -0.013))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.035, 0.0, -0.1))
     if posebone.name.upper() == "MIDDLE_02_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.035, 0.0, 0.013))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.035, 0.0, 0.1))
     if posebone.name.upper() == "MIDDLE_03_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.04, 0.0, 0.0))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.04, 0.0, -.15))
     if posebone.name.upper() == "MIDDLE_03_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.04, 0.0, 0.0))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.04, 0.0, 0.15))
     if posebone.name.upper() == "INDEX_01_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.025, 0.0, -0.01))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.025, 0.0, -0.16))
     if posebone.name.upper() == "INDEX_01_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.025, 0.0, 0.01))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.025, 0.0, 0.16))
     if posebone.name.upper() == "INDEX_02_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, -0.005))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, -0.15))
     if posebone.name.upper() == "INDEX_02_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, 0.005))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, 0.15))
     if posebone.name.upper() == "RING_01_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.0075, 0.0, 0.065))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.0075, 0.0, -0.15))
     if posebone.name.upper() == "RING_01_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.075, 0.0, -0.065))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.075, 0.0, 0.15))
     if posebone.name.upper() == "RING_02_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.025, 0.0, -0.015))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.025, 0.0, -0.14))
     if posebone.name.upper() == "RING_02_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.025, 0.0, 0.015))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.025, 0.0, 0.14))
     if posebone.name.upper() == "PINKY_01_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.023, 0.0, 0.07))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.023, 0.0, -0.11))
     if posebone.name.upper() == "PINKY_01_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.023, 0.0, -0.07))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.023, 0.0, 0.11))
     if posebone.name.upper() == "PINKY_02_L":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, -0.016))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, -0.18))
     if posebone.name.upper() == "PINKY_02_R":
-        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, 0.016))
+        posebone.rotation_quaternion += mathutils.Quaternion((0.0, 0.01, 0.0, 0.18))
     if posebone.name.upper() == "THUMB_01_L":
         posebone.rotation_quaternion += mathutils.Quaternion((0.0, -0.021, 0.0, -0.102))
     if posebone.name.upper() == "THUMB_01_R":
@@ -172,7 +159,7 @@ create_bone("calf_r", "calf_twist_01_r", (-1.5, -20.2, -3.2), (-2.1, 5, 29.8))
 bpy.ops.object.mode_set(mode='OBJECT')
 
 
-# create all the vertex groups for the twist bones
+# create the vertex groups for the twist bones
 bpy.context.tool_settings.vertex_group_weight = 0.0
 bpy.context.scene.objects.active = charactermesh
 bpy.ops.object.mode_set(mode='EDIT')    # we need to go into edit mode to do this
