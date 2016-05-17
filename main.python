@@ -12,17 +12,11 @@ print("\nStart script")
 # start by creating some empty veriables
 armature = None
 all_meshes = []
-charactermesh = None
-max_vertex_groups = -1          # the character mesh is probably the one with the most vertex groups / joints
 
 # go through the selected objects
 for object in bpy.context.selected_objects: 
     if object.type == 'MESH':
         all_meshes.append(object)
-        # check to see if this one might be the character mesh
-        if len(object.vertex_groups) > max_vertex_groups:
-            charactermesh = object
-            max_vertex_groups = len(object.vertex_groups)
     if object.type == 'ARMATURE':
         armature = object
 
@@ -116,34 +110,38 @@ bpy.ops.object.mode_set(mode='OBJECT')
 
 # create the vertex groups for the twist bones
 bpy.context.tool_settings.vertex_group_weight = 0.0
-bpy.context.scene.objects.active = charactermesh
-bpy.ops.object.mode_set(mode='EDIT')    # we need to go into edit mode to do this
 
-def add_group(parentname, newname):
-    bpy.ops.object.vertex_group_add()
-    charactermesh.vertex_groups[-1].name = newname
-    bpy.ops.object.vertex_group_set_active(group = parentname)
-    bpy.ops.mesh.select_all(action = 'DESELECT')
-    bpy.ops.object.vertex_group_select()
-    bpy.ops.object.vertex_group_set_active(group = newname)
-    bpy.ops.object.vertex_group_assign()
-    print("Added vertex group " + newname)
-
-add_group("upperarm_l", "upperarm_twist_01_l")
-add_group("lowerarm_l", "lowerarm_twist_01_l")
-add_group("thigh_l", "thigh_twist_01_l")
-add_group("calf_l", "calf_twist_01_l")
-
-## only create the left vertex groups - if the makehuman model is symmetrical
-## you can copy the left vertex weights to create the 
-## right side using Mirror Vertex Group (Topology).
-## otherwise uncomment the following.
-#add_group("upperarm_r", "upperarm_twist_01_r")
-#add_group("lowerarm_r", "lowerarm_twist_01_r")
-#add_group("thigh_r", "thigh_twist_01_r")
-#add_group("calf_r", "calf_twist_01_r")
-
-bpy.ops.object.mode_set(mode='OBJECT')    # put us back in object mode where we started
+def try_add_group(meshobj, parentname, newname):
+    for vgroup in meshobj.vertex_groups:
+        if vgroup.name == parentname:
+            bpy.ops.object.vertex_group_add()
+            meshobj.vertex_groups[-1].name = newname
+            # select the vertices from parent vgroup and
+            # assign them to the new vgroup with weight 0.
+            bpy.ops.object.vertex_group_set_active(group = parentname)
+            bpy.ops.mesh.select_all(action = 'DESELECT')
+            bpy.ops.object.vertex_group_select()
+            bpy.ops.object.vertex_group_set_active(group = newname)
+            bpy.ops.object.vertex_group_assign()
+            print("Added vertex group " + newname)
+for currentmesh in all_meshes:
+    bpy.context.scene.objects.active = currentmesh
+    bpy.ops.object.mode_set(mode='EDIT')    # we need to go into edit mode to do this
+    try_add_group(currentmesh, "upperarm_l", "upperarm_twist_01_l")
+    try_add_group(currentmesh, "lowerarm_l", "lowerarm_twist_01_l")
+    try_add_group(currentmesh, "thigh_l", "thigh_twist_01_l")
+    try_add_group(currentmesh, "calf_l", "calf_twist_01_l")
+    ## only create the left vertex groups - if the makehuman model is symmetrical
+    ## you can copy the left vertex weights to create the 
+    ## right side using Mirror Vertex Group (Topology).
+    ## otherwise uncomment the following.
+    #try_add_group(currentmesh, "upperarm_r", "upperarm_twist_01_r")
+    #try_add_group(currentmesh, "lowerarm_r", "lowerarm_twist_01_r")
+    #try_add_group(currentmesh, "thigh_r", "thigh_twist_01_r")
+    #try_add_group(currentmesh, "calf_r", "calf_twist_01_r")
+    
+    # put us back in object mode where we started
+    bpy.ops.object.mode_set(mode='OBJECT') 
 
 print("Finished script")
         
