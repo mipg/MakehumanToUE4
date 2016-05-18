@@ -1,0 +1,12 @@
+# Usage: when UE4 exports animations, it erroneously changes the location
+# of several bones.
+# Select armature objects and script will set all bone locations to 0,0,0.
+# (except for root and pelvis bones)
+
+import bpy
+
+for object in bpy.context.selected_objects:
+    if object.type == 'ARMATURE':
+        for posebone in object.pose.bones:
+            if "root" not in posebone.name.lower() and "pelvis" not in posebone.name.lower():
+                posebone.location = (0, 0, 0)
