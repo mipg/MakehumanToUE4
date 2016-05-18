@@ -113,12 +113,12 @@ bpy.context.tool_settings.vertex_group_weight = 0.0
 
 def try_add_group(meshobj, parentname, newname):
     for vgroup in meshobj.vertex_groups:
-        if vgroup.name == parentname:
+        if vgroup.name.upper() == parentname.upper():
             bpy.ops.object.vertex_group_add()
             meshobj.vertex_groups[-1].name = newname
             # select the vertices from parent vgroup and
             # assign them to the new vgroup with weight 0.
-            bpy.ops.object.vertex_group_set_active(group = parentname)
+            bpy.ops.object.vertex_group_set_active(group = parentname.lower())
             bpy.ops.mesh.select_all(action = 'DESELECT')
             bpy.ops.object.vertex_group_select()
             bpy.ops.object.vertex_group_set_active(group = newname)
